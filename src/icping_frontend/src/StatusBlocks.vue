@@ -24,7 +24,8 @@ defineProps({
 .uptime-container {
   display: flex;
   gap: 4px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .status-rectangle {

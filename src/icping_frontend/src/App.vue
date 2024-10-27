@@ -53,18 +53,21 @@ async function handleSubmit(e) {
 </script>
 
 <template>
-  <main>
+  <main class="main-container">
     <img src="/logo2.svg" alt="DFINITY logo" />
     <h2>ICPing: On-chain healthchecker</h2>
     <br />
 
     <br />
     <form action="#" @submit="handleSubmit">
-      <label for="url">Enter the url:</label>
-      <input id="url" alt="Name" type="text" :value="url" />
+      <div>
+        <label for="url">Enter the endpoint for the request:</label>
+        <input id="url" alt="Name" type="text" :value="url" class="endpoint-input" />
+      </div>
       <button type="submit">Select endpoint</button>
     </form>
-    <section>Endpoint: {{ url }}</section>
+    <hr />
+    <div class="endpoint">Endpoint: {{ url }}</div>
     <StatusBlocks :uptime="uptime" />
   </main>
 </template>
@@ -75,14 +78,9 @@ body {
   font-size: 1.5rem;
 }
 
-h2 {
-  display: block;
-  margin: auto;
-}
-
 img {
-  max-width: 50vw;
-  max-height: 25vw;
+  max-width: 15vw;
+  max-height: 15vw;
   display: block;
   margin: auto;
 }
@@ -90,26 +88,31 @@ img {
 form {
   display: flex;
   justify-content: center;
-  gap: 0.5em;
+  gap: 1rem;
   flex-flow: row wrap;
-  max-width: 40vw;
-  margin: auto;
+
   align-items: baseline;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.endpoint {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 button[type='submit'] {
-  padding: 5px 20px;
-  margin: 10px auto;
   float: right;
 }
 
-#greeting {
-  margin: 10px auto;
-  padding: 10px 60px;
-  border: 1px solid #222;
+.main-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-#greeting:empty {
-  display: none;
+.endpoint-input {
+  min-width: 500px;
+  width: 100%;
 }
 </style>
