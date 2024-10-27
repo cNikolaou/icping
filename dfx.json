@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "icping_backend": {
+      "main": "src/icping_backend/main.mo",
+      "type": "motoko"
+    },
+    "icping_frontend": {
+      "dependencies": [
+        "icping_backend"
+      ],
+      "source": [
+        "src/icping_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "icping_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
