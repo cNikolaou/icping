@@ -20,10 +20,17 @@ actor {
   var host : Text = "";
 
   public func setUrl(newUrl : Text) : async Text {
+    // reset the buffer when the url changes
+    if (newUrl != url) {
+      buffer.clear();
+    };
+
     url := newUrl;
     return url;
   };
 
+  // TODO: extract the host component from the `url` and not have a separate
+  // setter function
   public func setHost(newHost : Text) : async Text {
     host := newHost;
     return host;
