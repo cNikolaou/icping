@@ -2,6 +2,8 @@
 import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
 import { icping_backend } from 'declarations/icping_backend/index';
 
+import StatusBlocks from './StatusBlocks.vue';
+
 const url = ref('');
 const uptime = ref([]);
 let intervalId;
@@ -53,7 +55,7 @@ async function handleSubmit(e) {
 <template>
   <main>
     <img src="/logo2.svg" alt="DFINITY logo" />
-    <h1>ICPing: On-chain healthchecker</h1>
+    <h2>ICPing: On-chain healthchecker</h2>
     <br />
 
     <br />
@@ -62,7 +64,8 @@ async function handleSubmit(e) {
       <input id="url" alt="Name" type="text" :value="url" />
       <button type="submit">Select endpoint</button>
     </form>
-    <section>url: {{ url }}</section>
+    <section>Endpoint: {{ url }}</section>
+    <StatusBlocks :uptime="uptime" />
   </main>
 </template>
 
@@ -72,7 +75,7 @@ body {
   font-size: 1.5rem;
 }
 
-h1 {
+h2 {
   display: block;
   margin: auto;
 }
