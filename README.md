@@ -14,7 +14,7 @@ See a sample image of running the canister on the localhost:
 
 ![icping-frontend](./docs/icping.png "ICPing frontend")
 
-## How to run
+## Run & Deploy
 
 You can run the canister locally for future development by starting the local
 IC network: `dfx start --clean`
@@ -28,6 +28,23 @@ for hot reloading the changes to the canister and you can also run
 You can deploy your own canister and set it to watch your own endpoint with
 `dfx deploy --network=ic`. A deployed version can be found at [https://4hhjk-jiaaa-aaaai-q3lja-cai.icp0.io/](https://4hhjk-jiaaa-aaaai-q3lja-cai.icp0.io/).
 
+## Demo Server
+
+There is a Django server you can run under the `demo/` directory for local
+development and testing. To use it:
+
+```
+cd demo/server/testsite
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python ./manage.py runserver
+```
+
+This will install the necessary python packages and run a development server.
+You can access the healthcheck endpoint at: `http://localhost:8000/healthcheck/`
+and you can set that as the `url` of the endpoint for the canister.
+
 ## Architecture
 
 The backend canister uses a `Timer` to setup a timer to make periodic `GET` requests
@@ -40,7 +57,7 @@ The frontend canister is allowed to set the `url` of the endpoint to ping. Then
 retrieves the values stored in the backend canister buffer and displays the
 status information as red/green rectangles.
 
-## Future improvements
+## Future Improvements
 
 Currently the canister has many limitation. Some necessary future improvements:
 - Access control: Add access control to allow only the controller(s) of the
