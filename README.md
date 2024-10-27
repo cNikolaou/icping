@@ -25,6 +25,9 @@ You can use [`mo-dev`](https://internetcomputer.org/docs/current/motoko/main/mot
 for hot reloading the changes to the canister and you can also run
 `npm run start` to start the frontend only at `http://localhost:3000`.
 
+You can deploy your own canister and set it to watch your own endpoint with
+`dfx deploy --network=ic`. A deployed version can be found at [https://4hhjk-jiaaa-aaaai-q3lja-cai.icp0.io/](https://4hhjk-jiaaa-aaaai-q3lja-cai.icp0.io/).
+
 ## Architecture
 
 The backend canister uses a `Timer` to setup a timer to make periodic `GET` requests
