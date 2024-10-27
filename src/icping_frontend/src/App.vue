@@ -1,15 +1,40 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
 import { icping_backend } from 'declarations/icping_backend/index';
 
 const url = ref('');
-const tp = ref('');
+let intervalId;
 
-async function getTimestamp() {
-  await icping_backend.ping().then((response) => {
-    tp.value = response;
+onMounted(async () => {
+  await icping_backend.getFrequency().then((response) => {
+    interval.value = parseInt(response);
+    console.log('FETCH', interval.value);
   });
+});
+
+watch(url, () => {
+  if (url !== '') {
+    intervalId = setInterval(async () => {
+      console.log('FETCH');
+      const uptime = await icping_backend.getUptime();
+      console.log(uptime);
+    }, interval.value * 1000);
+  } else {
+    stopUptimeReq();
+  }
+});
+
+function stopUptimeReq() {
+  if (intervalId !== undefined) {
+    clearInterval(intervalID);
+  }
 }
+
+onBeforeUnmount(() => {
+  stopUptimeReq();
+});
+
+const interval = ref(1000);
 
 async function handleSubmit(e) {
   console.log(e);
@@ -35,10 +60,8 @@ async function handleSubmit(e) {
     <form action="#" @submit="handleSubmit">
       <label for="url">Enter the url:</label>
       <input id="url" alt="Name" type="text" />
-      <button type="submit">Click Me!</button>
+      <button type="submit">Select endpoint</button>
     </form>
     <section>url: {{ url }}</section>
-    <div>Timestamp: {{ tp }}</div>
-    <button @click="getTimestamp">Ping</button>
   </main>
 </template>

@@ -1,5 +1,7 @@
 import Debug "mo:base/Debug";
 import Blob "mo:base/Blob";
+import Bool "mo:base/Bool";
+import Buffer "mo:base/Buffer";
 import Cycles "mo:base/ExperimentalCycles";
 import Error "mo:base/Error";
 import Array "mo:base/Array";
@@ -7,6 +9,7 @@ import Nat8 "mo:base/Nat8";
 import Nat "mo:base/Nat";
 import Nat64 "mo:base/Nat64";
 import Text "mo:base/Text";
+import Timer "mo:base/Timer";
 
 //import the custom types we have in Types.mo
 import Types "Types";
@@ -111,4 +114,45 @@ actor {
 
     decoded_text;
   };
+
+  // function to call repeatedly every `sec` seconds
+  private func rep() : async () {
+    if (url == "") {
+      Debug.print("No URL is set");
+    } else {
+
+      try {
+
+        let response : Text = await ping();
+        if (response == "No value returned") {
+          buffer.add(false);
+        } else {
+          buffer.add(true);
+        };
+      } catch _ {
+        buffer.add(false);
+      };
+
+      // keep only the latest `size` of values
+      if (buffer.size() > size) {
+        ignore buffer.remove(0);
+      };
+    };
+  };
+
+  let size : Nat = 20;
+  let buffer = Buffer.Buffer<Bool>(5);
+
+  public query func getUptime() : async [Bool] {
+    return Buffer.toArray(buffer);
+  };
+
+  let sec : Nat = 5;
+
+  public query func getFrequency() : async Nat {
+    return sec;
+  };
+
+  ignore Timer.recurringTimer<system>(#seconds sec, rep);
+
 };
