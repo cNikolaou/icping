@@ -9,7 +9,7 @@ const uptime = ref([]);
 let intervalId;
 
 onMounted(async () => {
-  await icping_backend.getFrequency().then((response) => {
+  await icping_backend.getInterval().then((response) => {
     interval.value = parseInt(response);
   });
 

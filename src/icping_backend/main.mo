@@ -147,12 +147,12 @@ actor {
     return Buffer.toArray(buffer);
   };
 
-  let sec : Nat = 5;
+  let interval : Nat = 5;
 
-  public query func getFrequency() : async Nat {
-    return sec;
+  public query func getInterval() : async Nat {
+    return interval;
   };
 
-  ignore Timer.recurringTimer<system>(#seconds sec, rep);
+  ignore Timer.recurringTimer<system>(#seconds interval, rep);
 
 };
